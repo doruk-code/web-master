@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yorumlar Sayfası</title>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background-color: #fff;
+            padding: 2rem;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+
+        .comment {
+            border: 1px solid #ccc;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 5px;
+        }
+
+        .comment h2 {
+            font-size: 1.2rem;
+            margin: 0 0 0.5rem;
+        }
+
+        .comment p {
+            font-size: 1rem;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="animate__animated animate__backInLeft">Yorumlar Sayfası</h1>
+    </header>
+    <div class="container" id="commentContainer">
+        <h2 class="animate__animated animate__bounce">Yorumlar</h2>
+    </div>
+
+    <script>
+
+        const jsonData = {
+            "comments": [
+                {
+                    "title": "Yorum 1",
+                    "content": "içerik 1",
+                    "comment_to_comment": null
+                },
+                {
+                    "title": "Yorum 2",
+                    "content": "içerik 2",
+                    "comment_to_comment": "Yoruma yorum 2"
+                },
+                {
+                    "title": "Yorum 3",
+                    "content": "içerik 3",
+                    "comment_to_comment": ""
+                },
+                {
+                     "title": "Yorum 4",
+                    "content": "içerik 4",
+                    "comment_to_comment": "Yoruma yorum 4"
+                },
+                {
+                     "title": "Yorum 5",
+                    "content": "içerik 5",
+                    "comment_to_comment": null
+                }
+            ]
+        };
+
+        function renderComments(comments, parentElement) {
+            comments.forEach(commentData => {
+                const commentDiv = document.createElement("div");
+                commentDiv.classList.add("comment");
+
+                const commentTitle = document.createElement("h2");
+                commentTitle.textContent = commentData.title;
+
+                const commentContent = document.createElement("p");
+                commentContent.textContent = commentData.content;
+
+                commentDiv.appendChild(commentTitle);
+                commentDiv.appendChild(commentContent);
+
+                if (commentData.comment_to_comment) {
+                    const subCommentDiv = document.createElement("div");
+                    subCommentDiv.classList.add("comment");
+                    const subCommentTitle = document.createElement("h2");
+                    subCommentTitle.textContent = commentData.comment_to_comment;
+                    subCommentDiv.appendChild(subCommentTitle);
+                    commentDiv.appendChild(subCommentDiv);
+                }
+
+                parentElement.appendChild(commentDiv);
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const commentContainer = document.getElementById("commentContainer");
+            renderComments(jsonData.comments, commentContainer);
+        });
+    </script>
+</body>
+</html>
